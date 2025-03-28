@@ -1,0 +1,40 @@
+Monitor AWS Resources using Shell Scripting :
+
+#!/bin/bash
+#
+#
+#######################
+#
+# Author: Mahboob
+# Date  : 27/03/2025
+# Name  : AWS Resource Tracker
+#
+#######################
+
+#Executing the script in a debug mode
+set -x
+
+#Modify the file permissions to make it executable
+chmod +x awsresourcetracker.sh
+
+#List AWS S3 Buckets
+echo "Print the list of aws s3 buckets"
+aws s3 ls
+
+#List AWS EC2 Instances
+echo "Print the list of aws ec2 instances"
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].{Instance:InstanceId}'
+
+#List AWS Lamda functions
+echo "Print the list of aws lambda functions"
+aws lambda list-functions
+
+#List AWS IAM Users
+echo "Print the list of IAM users"
+aws iam list-users
+
+#Enter the crontab editor
+crontab -e
+
+#Schedule a cron job 
+20 * * * awsresourcetracker.sh
